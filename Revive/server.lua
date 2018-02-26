@@ -1,28 +1,25 @@
-AddEventHandler("chatMessage", function(source, name, message)
-  local cm = stringsplit(message, " ")
-
-	if cm[1] == "/revive" then
+AddEventHandler(
+  "chatMessage",
+  function(source, name, message)
+    if string.starts(message, "/revive") then
       CancelEvent()
-	    if tablelength(cm) > 1 then
-		    local tPID = tonumber(cm[2])
-	        TriggerClientEvent("revive", tPID)
-	    end
-	end
-end)
-
-function stringsplit(self, delimiter)
-  local a = self:Split(delimiter)
-  local t = {}
-
-  for i = 0, #a - 1 do
-     table.insert(t, a[i])
+      -- if string.sub(message, 1, 8) ~= nil then
+      --   if tonumber(string.sub(message, 9)) then
+      --     if NetworkDoesNetworkIdExist(tonumber(string.sub(message, 9))) then
+      --       TriggerClientEvent("reviveOther", string.sub(message, 9))
+      --     else
+      --       TriggerEvent("chatMessage", "Revive | ", {244, 67, 54}, "Invalid player ID")
+      --     end
+      --   else
+      --     TriggerEvent("chatMessage", "Revive | ", {244, 67, 54}, "Invalid player ID")
+      --   end
+      -- else
+      TriggerClientEvent("reviveSelf", source)
+      -- end
+    end
   end
+)
 
-  return t
-end
-
-function tablelength(T)
-  local count = 0
-  for _ in pairs(T) do count = count + 1 end
-  return count
+function string.starts(String, Start)
+  return string.sub(String, 1, string.len(Start)) == Start
 end
