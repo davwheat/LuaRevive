@@ -3,7 +3,7 @@ AddEventHandler(
   function(source, name, message)
     if string.starts(message, "/revive") then
       CancelEvent()
-      if string.sub(message, 1, 8) ~= nil then
+      if string.sub(message, 1, 8) ~= "" then
         TriggerClientEvent("reviveOther", string.sub(message, 9))
       else
       TriggerClientEvent("reviveSelf", source)
